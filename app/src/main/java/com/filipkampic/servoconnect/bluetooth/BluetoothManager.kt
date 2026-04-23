@@ -1,7 +1,10 @@
+package com.filipkampic.servoconnect.bluetooth
+
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothSocket
 import java.util.UUID
 
+@Suppress("DEPRECATION")
 class BluetoothManager {
 
     private var socket: BluetoothSocket? = null

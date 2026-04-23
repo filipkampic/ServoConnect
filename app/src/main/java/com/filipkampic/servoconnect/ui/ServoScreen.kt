@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ServoScreen() {
+fun ServoScreen(onConnectClick: () -> Unit) {
     var angle by remember { mutableStateOf(0f) }
 
     Column(
@@ -39,7 +39,7 @@ fun ServoScreen() {
         )
 
         Button(onClick = {
-            Log.d("APP", "Connect clicked")
+            onConnectClick()
         }) {
             Text("Connect")
         }
