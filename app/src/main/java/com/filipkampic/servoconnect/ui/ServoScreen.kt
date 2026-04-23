@@ -1,10 +1,12 @@
 package com.filipkampic.servoconnect.ui
 
+import ConnectionState
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Slider
@@ -20,10 +22,17 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ServoScreen(
+    connectionState: ConnectionState,
     onConnectClick: () -> Unit,
     onAngleChange: (Int) -> Unit
 ) {
     var angle by remember { mutableStateOf(0f) }
+    val statusText = when (connectionState) {
+        is ConnectionState.Connected -> "🟢 Connected"
+        is ConnectionState.Connecting -> "🟡 Connecting..."
+        is ConnectionState.Disconnected -> "🔴 Disconnected"
+        is ConnectionState.Error -> "❌ Error"
+    }
 
     Column(
         modifier = Modifier
@@ -35,6 +44,13 @@ fun ServoScreen(
             text = "Servo Control",
             fontSize = 24.sp
         )
+
+        Text(
+            text = statusText,
+            fontSize = 18.sp
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         Text(
             text = "Angle: ${angle.toInt()}",
