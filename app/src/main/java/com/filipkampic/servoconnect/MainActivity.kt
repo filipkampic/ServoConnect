@@ -16,9 +16,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ServoScreen(
-                onConnectClick = {
-                    connectToBluetooth()
-                }
+                onConnectClick = { connectToBluetooth() },
+                onAngleChange = { angle -> sendAngle(angle) }
             )
         }
     }
@@ -35,5 +34,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun sendAngle(angle: Int) {
+        bluetoothManager.send("$angle\n")
     }
 }

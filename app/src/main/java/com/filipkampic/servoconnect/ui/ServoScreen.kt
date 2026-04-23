@@ -19,7 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ServoScreen(onConnectClick: () -> Unit) {
+fun ServoScreen(
+    onConnectClick: () -> Unit,
+    onAngleChange: (Int) -> Unit
+) {
     var angle by remember { mutableStateOf(0f) }
 
     Column(
@@ -48,7 +51,10 @@ fun ServoScreen(onConnectClick: () -> Unit) {
             value = angle,
             onValueChange = {
                 angle = it
-                Log.d("APP", "Angle: ${it.toInt()}")
+                val intAngle = it.toInt()
+
+                Log.d("UI", "Angle: $intAngle")
+                onAngleChange(intAngle)
             },
             valueRange = 0f..180f
         )
